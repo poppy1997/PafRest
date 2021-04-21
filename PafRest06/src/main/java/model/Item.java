@@ -60,10 +60,10 @@ public class Item
 			 Connection con = connect(); 
 			 if (con == null) 
 			 {return "Error while connecting to the database for reading."; } 
-			 // Prepare the html table to be displayed
-			 output = "<table border='1'><tr><th>Item Code</th><th>Item Name</th>" +
-			 "<th>Item Price</th>" + 
-			 "<th>Item Description</th>" +
+			 // Prepare the HTML table to be displayed
+			 output = "<table border='1'><tr><th>Researcher Code</th><th>Researcher Name</th>" +
+			 "<th>Project Price</th>" + 
+			 "<th>Project Description</th>" +
 			 "<th>Update</th><th>Remove</th></tr>"; 
 			 
 			 String query = "select * from items"; 
@@ -77,7 +77,7 @@ public class Item
 			 String itemName = rs.getString("itemName"); 
 			 String itemPrice = Double.toString(rs.getDouble("itemPrice")); 
 			 String itemDesc = rs.getString("itemDesc"); 
-			 // Add into the html table
+			 // Add into the HTML table
 			 output += "<tr><td>" + itemCode + "</td>"; 
 			 output += "<td>" + itemName + "</td>"; 
 			 output += "<td>" + itemPrice + "</td>"; 
@@ -89,7 +89,7 @@ public class Item
 			 + "'>" + "</form></td></tr>"; 
 			 } 
 			 con.close(); 
-			 // Complete the html table
+			 // Complete the HTML table
 			 output += "</table>"; 
 			 } 
 			 catch (Exception e) 
