@@ -1,6 +1,6 @@
 package model;
 import java.sql.*;
-public class Item
+public class Researcher
 { 		//A common method to connect to the DB
 	private Connection connect()
 	{

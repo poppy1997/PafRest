@@ -1,7 +1,7 @@
 package com;
 
 
-import model.Item;
+import model.Researcher;
 
 //For REST Service
 import javax.ws.rs.*;
@@ -16,9 +16,9 @@ import org.jsoup.parser.*;
 import org.jsoup.nodes.Document;
 
 @Path("/Items")
-public class ItemService
+public class ResearcherService
 {
-		Item itemObj = new Item();
+		Researcher itemObj = new Researcher();
 		@GET
 		@Path("/")
 		@Produces(MediaType.TEXT_HTML)
