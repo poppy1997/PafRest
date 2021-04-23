@@ -1,6 +1,6 @@
 package com;
 import model.Project;
-import model.Researcher;
+
 
 //For REST Service
 import javax.ws.rs.*;
@@ -16,7 +16,7 @@ import org.jsoup.nodes.Document;
 
 @Path("/Items")
 public class ProjectService {
-	Researcher itemObj = new Researcher();
+	Project itemObj = new Project();
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)

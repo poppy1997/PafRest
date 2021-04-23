@@ -120,7 +120,7 @@ public class Register
 		return output; 
 			 
 	} 
-	
+	/*
 	public String updateItem(String id, String userName, String userPassword, String userCode, String userEmail, String userPhone)
 	{ 
 		String output = "";
@@ -194,4 +194,5 @@ public class Register
 		} 
 		return output; 
 	} 
+	*/
 } 

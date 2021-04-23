@@ -41,7 +41,7 @@ public class RegisterService
 				String output = regObj.insertItem(userName, userPassword, userCode, userEmail, userPhone);
 				return output;
 		}
-
+/*
 		@PUT
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_JSON)
@@ -75,5 +75,5 @@ public class RegisterService
 		 String output = regObj.deleteItem(itemID);
 		return output;
 		}
-
+*/
 }

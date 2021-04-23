@@ -16,9 +16,11 @@ import org.jsoup.parser.*;
 import org.jsoup.nodes.Document;
 
 @Path("/Items")
+
 public class ResearcherService
 {
 		Researcher itemObj = new Researcher();
+		/*
 		@GET
 		@Path("/")
 		@Produces(MediaType.TEXT_HTML)
@@ -32,15 +34,17 @@ public class ResearcherService
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
-		public String insertItem(@FormParam("itemCode") String itemCode,
-							@FormParam("itemName") String itemName,
-							@FormParam("itemPrice") String itemPrice,
-							@FormParam("itemDesc") String itemDesc)
+		public String insertItem(@FormParam("userName") String itemName,
+							@FormParam("userPassword") String itemPw,
+							@FormParam("userCode") String itemCode,
+							@FormParam("userEmail") String itemEmail,
+							@FormParam("userPhone") String itemPh)
 		{
-				String output = itemObj.insertItem(itemCode, itemName, itemPrice, itemDesc);
+				String output = itemObj.insertItem(itemName,itemPw , itemCode, itemEmail, itemPh);
 				return output;
 		}
-
+		
+*/
 		
 		@PUT
 		@Path("/")
@@ -51,12 +55,13 @@ public class ResearcherService
 			//Convert the input string to a JSON object
 			JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
 			//Read the values from the JSON object
-			String itemID = itemObject.get("itemID").getAsString();
-			String itemCode = itemObject.get("itemCode").getAsString();
-			String itemName = itemObject.get("itemName").getAsString();
-			String itemPrice = itemObject.get("itemPrice").getAsString();
-			String itemDesc = itemObject.get("itemDesc").getAsString();
-			String output = itemObj.updateItem(itemID, itemCode, itemName, itemPrice, itemDesc);
+			String itemID = itemObject.get("userID").getAsString();
+			String itemName = itemObject.get("userName").getAsString();
+			String itemPw = itemObject.get("userPassword").getAsString();
+		
+			String itemEmail = itemObject.get("userEmail").getAsString();
+			String itemPh = itemObject.get("userPhone").getAsString();
+			String output = itemObj.updateItem(itemID, itemName, itemPw, itemEmail, itemPh);
 			return output;
 		}
 		
@@ -71,7 +76,7 @@ public class ResearcherService
 		 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
 
 		//Read the value from the element <itemID>
-		 String itemID = doc.select("itemID").text();
+		 String itemID = doc.select("userID").text();
 		 String output = itemObj.deleteItem(itemID);
 		return output;
 		}

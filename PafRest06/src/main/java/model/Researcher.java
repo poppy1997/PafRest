@@ -1,5 +1,6 @@
 package model;
 import java.sql.*;
+
 public class Researcher
 { 		//A common method to connect to the DB
 	private Connection connect()
@@ -17,7 +18,7 @@ public class Researcher
 		{e.printStackTrace();}
 		return con;
 	}
-	
+	/*
 	public String insertItem(String code, String name, String price, String desc)
 	{
 		String output = "";
@@ -51,7 +52,8 @@ public class Researcher
 			 System.err.println(e.getMessage()); 
 			 } 
 			 return output; 
-			 } 
+			 } */
+	
 			public String readItems() 
 			 { 
 			 String output = ""; 
@@ -66,25 +68,27 @@ public class Researcher
 			 "<th>Project Description</th>" +
 			 "<th>Update</th><th>Remove</th></tr>"; 
 			 
-			 String query = "select * from items"; 
+			 String query = "select userName,userPassword,userCode,userEmail,userPhone from user"; 
 			 Statement stmt = con.createStatement(); 
 			 ResultSet rs = stmt.executeQuery(query); 
 			 // iterate through the rows in the result set
 			 while (rs.next()) 
 			 { 
-			 String itemID = Integer.toString(rs.getInt("itemID")); 
-			 String itemCode = rs.getString("itemCode"); 
-			 String itemName = rs.getString("itemName"); 
-			 String itemPrice = Double.toString(rs.getDouble("itemPrice")); 
-			 String itemDesc = rs.getString("itemDesc"); 
+			 String itemID = Integer.toString(rs.getInt("userID")); 
+			 String itemName = rs.getString("userName"); 
+			 String itemPw = rs.getString("userPassword"); 
+			 String itemCode = rs.getString("userCode"); 
+			 String itemEmail = rs.getString("userEmail"); 
+			 String itemPh = rs.getString("userPhone"); 
 			 // Add into the HTML table
-			 output += "<tr><td>" + itemCode + "</td>"; 
-			 output += "<td>" + itemName + "</td>"; 
-			 output += "<td>" + itemPrice + "</td>"; 
-			 output += "<td>" + itemDesc + "</td>"; 
+			 output += "<tr><td>" + itemName + "</td>"; 
+			 output += "<td>" + itemPw + "</td>"; 
+			 output += "<td>" + itemCode + "</td>"; 
+			 output += "<td>" + itemEmail + "</td>"; 
+			 output += "<td>" + itemPh + "</td>"; 
 			 // buttons
 			 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-			 + "<td><form method='post' action='items.jsp'>" + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+			 + "<td><form method='post' action='user.jsp'>" + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
 			 + "<input name='itemID' type='hidden' value='" + itemID 
 			 + "'>" + "</form></td></tr>"; 
 			 } 
@@ -100,7 +104,7 @@ public class Researcher
 			 return output; 
 			 } 
 			
-			public String updateItem(String ID, String code, String name, String price, String desc)
+			public String updateItem(String ID, String name, String pw, String email, String phone)
 			 { 
 			 String output = ""; 
 			 try
@@ -110,13 +114,14 @@ public class Researcher
 			 {return "Error while connecting to the database for updating."; } 
 			
 			 // create a prepared statement
-			 String query = "UPDATE items SET itemCode=?,itemName=?,itemPrice=?,itemDesc=? WHERE itemID=?"; 
+			 String query = "UPDATE user SET userName=?,userPassword=?,userEmail=?,userPhone=? WHERE userID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
+			 
 			 // binding values
-			 preparedStmt.setString(1, code); 
-			 preparedStmt.setString(2, name); 
-			 preparedStmt.setDouble(3, Double.parseDouble(price)); 
-			 preparedStmt.setString(4, desc); 
+			 preparedStmt.setString(1, name); 
+			 preparedStmt.setString(2, pw); 
+			 preparedStmt.setString(3, email); 
+			 preparedStmt.setString(4, phone); 
 			 preparedStmt.setInt(5, Integer.parseInt(ID)); 
 			 // execute the statement
 			 preparedStmt.execute(); 
@@ -125,7 +130,7 @@ public class Researcher
 			 } 
 			 catch (Exception e) 
 			 { 
-			 output = "Error while updating the item."; 
+			 output = "Error while updating the user details."; 
 			 System.err.println(e.getMessage()); 
 			 } 
 			 return output; 
@@ -140,7 +145,7 @@ public class Researcher
 			 if (con == null) 
 			 {return "Error while connecting to the database for deleting."; } 
 			 // create a prepared statement
-			 String query = "delete from items where itemID=?"; 
+			 String query = "delete from user where userID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
 			 preparedStmt.setInt(1, Integer.parseInt(itemID)); 
@@ -151,7 +156,7 @@ public class Researcher
 			 } 
 			 catch (Exception e) 
 			 { 
-			 output = "Error while deleting the item."; 
+			 output = "Error while deleting the user account."; 
 			 System.err.println(e.getMessage()); 
 			 } 
 			 return output; 
