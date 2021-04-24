@@ -68,7 +68,7 @@ public class Researcher
 			 "<th>Project Description</th>" +
 			 "<th>Update</th><th>Remove</th></tr>"; 
 			 
-			 String query = "select userName,userPassword,userCode,userEmail,userPhone from user"; 
+			 String query = "select * from user"; 
 			 Statement stmt = con.createStatement(); 
 			 ResultSet rs = stmt.executeQuery(query); 
 			 // iterate through the rows in the result set
@@ -104,7 +104,7 @@ public class Researcher
 			 return output; 
 			 } 
 			
-			public String updateItem(String ID, String name, String pw, String email, String phone)
+			public String updateItem(String ID, String name, String pw,String code, String email, String phone)
 			 { 
 			 String output = ""; 
 			 try
@@ -114,12 +114,13 @@ public class Researcher
 			 {return "Error while connecting to the database for updating."; } 
 			
 			 // create a prepared statement
-			 String query = "UPDATE user SET userName=?,userPassword=?,userEmail=?,userPhone=? WHERE userID=?"; 
+			 String query = "UPDATE user SET userName=?,userPassword=?,userCode=?,userEmail=?,userPhone=? WHERE userID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 
 			 // binding values
 			 preparedStmt.setString(1, name); 
-			 preparedStmt.setString(2, pw); 
+			 preparedStmt.setString(2, pw);
+			 preparedStmt.setString(2, code);
 			 preparedStmt.setString(3, email); 
 			 preparedStmt.setString(4, phone); 
 			 preparedStmt.setInt(5, Integer.parseInt(ID)); 

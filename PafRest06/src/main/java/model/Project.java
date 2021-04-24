@@ -18,7 +18,7 @@ public class Project {
 		return con;
 	}
 	
-	public String insertItem(String code, String name, String price, String desc)
+	public String insertItem(String name, String type, String price, String desc)
 	{
 		String output = "";
 		
@@ -28,14 +28,14 @@ public class Project {
 			if (con == null)
 			{return "Error while connecting to the database for inserting."; }
 			// create a prepared statement
-			String query = " insert into items (`itemID`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)"
+			String query = " insert into project (`projectID`,`projectName`,`projectType`,`projectPrice`,`projectDesc`)"
 					+ " values (?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
 			// binding values
 			preparedStmt.setInt(1, 0);
-			preparedStmt.setString(2, code);
-			preparedStmt.setString(3, name);
+			preparedStmt.setString(2, name);
+			preparedStmt.setString(3, type);
 			preparedStmt.setDouble(4, Double.parseDouble(price));
 			preparedStmt.setString(5, desc);
 			
@@ -61,22 +61,22 @@ public class Project {
 			 if (con == null) 
 			 {return "Error while connecting to the database for reading."; } 
 			 // Prepare the HTML table to be displayed
-			 output = "<table border='1'><tr><th>Researcher Code</th><th>Researcher Name</th>" +
+			 output = "<table border='1'><tr><th>Project Name</th><th>Project Type</th>" +
 			 "<th>Project Price</th>" + 
 			 "<th>Project Description</th>" +
 			 "<th>Update</th><th>Remove</th></tr>"; 
 			 
-			 String query = "select * from items"; 
+			 String query = "select * from project"; 
 			 Statement stmt = con.createStatement(); 
 			 ResultSet rs = stmt.executeQuery(query); 
 			 // iterate through the rows in the result set
 			 while (rs.next()) 
 			 { 
-			 String itemID = Integer.toString(rs.getInt("itemID")); 
-			 String itemCode = rs.getString("itemCode"); 
-			 String itemName = rs.getString("itemName"); 
-			 String itemPrice = Double.toString(rs.getDouble("itemPrice")); 
-			 String itemDesc = rs.getString("itemDesc"); 
+			 String itemID = Integer.toString(rs.getInt("projectID")); 
+			 String itemCode = rs.getString("projectName"); 
+			 String itemName = rs.getString("projectType"); 
+			 String itemPrice = Double.toString(rs.getDouble("projectPrice")); 
+			 String itemDesc = rs.getString("projectDesc"); 
 			 // Add into the HTML table
 			 output += "<tr><td>" + itemCode + "</td>"; 
 			 output += "<td>" + itemName + "</td>"; 
@@ -84,7 +84,7 @@ public class Project {
 			 output += "<td>" + itemDesc + "</td>"; 
 			 // buttons
 			 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-			 + "<td><form method='post' action='items.jsp'>" + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+			 + "<td><form method='post' action=''>" + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
 			 + "<input name='itemID' type='hidden' value='" + itemID 
 			 + "'>" + "</form></td></tr>"; 
 			 } 
@@ -100,7 +100,7 @@ public class Project {
 			 return output; 
 			 } 
 			
-			public String updateItem(String ID, String code, String name, String price, String desc)
+			public String updateItem(String ID, String name, String type, String price, String desc)
 			 { 
 			 String output = ""; 
 			 try
@@ -110,11 +110,11 @@ public class Project {
 			 {return "Error while connecting to the database for updating."; } 
 			
 			 // create a prepared statement
-			 String query = "UPDATE items SET itemCode=?,itemName=?,itemPrice=?,itemDesc=? WHERE itemID=?"; 
+			 String query = "UPDATE project SET projectName=?,projectType=?,projectPrice=?,projectDesc=? WHERE projectID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
-			 preparedStmt.setString(1, code); 
-			 preparedStmt.setString(2, name); 
+			 preparedStmt.setString(1, name); 
+			 preparedStmt.setString(2, type); 
 			 preparedStmt.setDouble(3, Double.parseDouble(price)); 
 			 preparedStmt.setString(4, desc); 
 			 preparedStmt.setInt(5, Integer.parseInt(ID)); 
@@ -140,7 +140,7 @@ public class Project {
 			 if (con == null) 
 			 {return "Error while connecting to the database for deleting."; } 
 			 // create a prepared statement
-			 String query = "delete from items where itemID=?"; 
+			 String query = "delete from project where projectID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
 			 preparedStmt.setInt(1, Integer.parseInt(itemID)); 

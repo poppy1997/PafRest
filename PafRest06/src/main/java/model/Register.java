@@ -32,7 +32,7 @@ public class Register
 			}
 			
 			// create a prepared statement
-			String query = " insert into funders (`id`,`userName`,`userPassword`,`userCode`,`userEmail`, `userPhone`)"
+			String query = " insert into user (`userID`,`userName`,`userPassword`,`userCode`,`userEmail`, `userPhone`)"
 					+ " values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
@@ -78,7 +78,7 @@ public class Register
 			 "<th>User Phone</th>" +
 			 "<th>Update</th><th>Remove</th></tr>"; 
 			 
-			 String query = "select * from funders"; 
+			 String query = "select * from user"; 
 			 Statement stmt = con.createStatement(); 
 			 ResultSet rs = stmt.executeQuery(query); 
 			 
@@ -86,7 +86,7 @@ public class Register
 			 // iterate through the rows in the result set
 			 while (rs.next()) 
 			 { 
-				 String id = Integer.toString(rs.getInt("id")); 
+				 String id = Integer.toString(rs.getInt("userID")); 
 				 String userName = rs.getString("userName"); 
 				 String userPassword = rs.getString("userPassword"); 
 				 String userCode = rs.getString("userCode"); 
@@ -96,7 +96,7 @@ public class Register
 				 // Add into the html table
 				 output += "<tr><td>" + userName + "</td>"; 
 				 output += "<td>" + userPassword + "</td>"; 
-				 output += "<td>" + userName + "</td>"; 
+				 output += "<td>" + userCode + "</td>"; 
 				 output += "<td>" + userEmail + "</td>"; 
 				 output += "<td>" + userPhone + "</td>";
 				 
@@ -121,7 +121,7 @@ public class Register
 			 
 	} 
 	/*
-	public String updateItem(String id, String userName, String userPassword, String userCode, String userEmail, String userPhone)
+	public String updateItem(String userID, String userName, String userPassword, String userCode, String userEmail, String userPhone)
 	{ 
 		String output = "";
 		
@@ -135,7 +135,7 @@ public class Register
 			 } 
 			
 			 // create a prepared statement
-			 String query = "UPDATE funders SET userName=?,userPassword=?,userCode=?, userEmail=?, userPhone=? WHERE id=?"; 
+			 String query = "UPDATE user SET userName=?,userPassword=?,userCode=?, userEmail=?, userPhone=? WHERE userID=?"; 
 			 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 
@@ -145,7 +145,7 @@ public class Register
 			 preparedStmt.setString(3, userCode); 
 			 preparedStmt.setString(4, userEmail); 
 			 preparedStmt.setString(5, userPhone); 
-			 preparedStmt.setInt(6, Integer.parseInt(id)); 
+			 preparedStmt.setInt(6, Integer.parseInt(userID)); 
 			 // execute the statement
 			 preparedStmt.execute(); 
 			 con.close(); 
@@ -174,7 +174,7 @@ public class Register
 			 }
 			 
 			 // create a prepared statement
-			 String query = "delete from funders where id=?"; 
+			 String query = "delete from funders where userID=?"; 
 			 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 
@@ -195,4 +195,36 @@ public class Register
 		return output; 
 	} 
 	*/
+	public String getUser(String email,String password)
+    {
+        String output = "";
+        try
+        {
+            Connection con = connect();
+       
+            //create a prepard statment
+        String query = "select * from funders where userEmail = '" + email +"' AND userPassword = '" + password + "'";
+        
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+       
+        if(rs.next()==true)
+        {
+       	 
+       	 output+="Loging Succsessful!";
+           
+        }
+        else {
+       	 output+="No user matching type";
+        }
+        con.close();
+       
+    }
+    catch (Exception e)
+    {
+        output = "Error while reading Users.";
+        System.err.println(e.getMessage());
+    }
+        return output;
+    }
 } 

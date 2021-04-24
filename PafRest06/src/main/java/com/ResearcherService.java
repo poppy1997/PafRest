@@ -1,7 +1,7 @@
 package com;
 
-
 import model.Researcher;
+
 
 //For REST Service
 import javax.ws.rs.*;
@@ -15,7 +15,7 @@ import org.jsoup.*;
 import org.jsoup.parser.*;
 import org.jsoup.nodes.Document;
 
-@Path("/Items")
+@Path("/Researcher")
 
 public class ResearcherService
 {
@@ -55,13 +55,14 @@ public class ResearcherService
 			//Convert the input string to a JSON object
 			JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
 			//Read the values from the JSON object
-			String itemID = itemObject.get("userID").getAsString();
-			String itemName = itemObject.get("userName").getAsString();
-			String itemPw = itemObject.get("userPassword").getAsString();
-		
-			String itemEmail = itemObject.get("userEmail").getAsString();
-			String itemPh = itemObject.get("userPhone").getAsString();
-			String output = itemObj.updateItem(itemID, itemName, itemPw, itemEmail, itemPh);
+			String userID = itemObject.get("userID").getAsString();
+			String userName = itemObject.get("userName").getAsString();
+			String userPassword = itemObject.get("userPassword").getAsString();
+			String userCode = itemObject.get("userEmail").getAsString();
+			String userEmail = itemObject.get("userPhone").getAsString();
+			String userPhone = itemObject.get("userPhone").getAsString();
+			
+			String output = itemObj.updateItem(userID, userName, userPassword, userCode, userEmail,userPhone);
 			return output;
 		}
 		
