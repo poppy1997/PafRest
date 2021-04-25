@@ -28,7 +28,7 @@ public class Project {
 			if (con == null)
 			{return "Error while connecting to the database for inserting."; }
 			// create a prepared statement
-			String query = " insert into project (`projectID`,`projectName`,`projectType`,`projectPrice`,`projectDesc`)"
+			String query = " insert into project (`projectID`,`projectName`,`projectType`,`projectPrice`,`projectDescription`)"
 					+ " values (?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
@@ -63,8 +63,7 @@ public class Project {
 			 // Prepare the HTML table to be displayed
 			 output = "<table border='1'><tr><th>Project Name</th><th>Project Type</th>" +
 			 "<th>Project Price</th>" + 
-			 "<th>Project Description</th>" +
-			 "<th>Update</th><th>Remove</th></tr>"; 
+			 "<th>Project Description</th></tr>"; 
 			 
 			 String query = "select * from project"; 
 			 Statement stmt = con.createStatement(); 
@@ -76,17 +75,13 @@ public class Project {
 			 String itemCode = rs.getString("projectName"); 
 			 String itemName = rs.getString("projectType"); 
 			 String itemPrice = Double.toString(rs.getDouble("projectPrice")); 
-			 String itemDesc = rs.getString("projectDesc"); 
+			 String itemDesc = rs.getString("projectDescription"); 
 			 // Add into the HTML table
 			 output += "<tr><td>" + itemCode + "</td>"; 
 			 output += "<td>" + itemName + "</td>"; 
 			 output += "<td>" + itemPrice + "</td>"; 
 			 output += "<td>" + itemDesc + "</td>"; 
-			 // buttons
-			 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-			 + "<td><form method='post' action=''>" + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-			 + "<input name='itemID' type='hidden' value='" + itemID 
-			 + "'>" + "</form></td></tr>"; 
+			
 			 } 
 			 con.close(); 
 			 // Complete the HTML table
@@ -102,6 +97,7 @@ public class Project {
 			
 			public String updateItem(String ID, String name, String type, String price, String desc)
 			 { 
+				
 			 String output = ""; 
 			 try
 			 { 
@@ -110,7 +106,7 @@ public class Project {
 			 {return "Error while connecting to the database for updating."; } 
 			
 			 // create a prepared statement
-			 String query = "UPDATE project SET projectName=?,projectType=?,projectPrice=?,projectDesc=? WHERE projectID=?"; 
+			 String query = "UPDATE project SET projectName=?,projectType=?,projectPrice=?,projectDescription=? WHERE projectID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
 			 preparedStmt.setString(1, name); 

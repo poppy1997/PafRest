@@ -75,8 +75,7 @@ public class Register
 			 output = "<table border='1'><tr><th>User Name</th><th>User Password</th>" +
 			 "<th>User Code</th>" + 
 			 "<th>User Email</th>" +
-			 "<th>User Phone</th>" +
-			 "<th>Update</th><th>Remove</th></tr>"; 
+			 "<th>User Phone</th></tr>"; 
 			 
 			 String query = "select * from user"; 
 			 Statement stmt = con.createStatement(); 
@@ -100,11 +99,7 @@ public class Register
 				 output += "<td>" + userEmail + "</td>"; 
 				 output += "<td>" + userPhone + "</td>";
 				 
-				 // buttons
-				 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-						 + "<td><form method='post' action=''>" + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-						 + "<input name='id' type='hidden' value='" + id 
-						 + "'>" + "</form></td></tr>"; 
+				 
 			 } 
 			 
 			 con.close();

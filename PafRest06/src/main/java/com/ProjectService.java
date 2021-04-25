@@ -33,7 +33,7 @@ public class ProjectService {
 	public String insertItem(@FormParam("projectName") String itemCode,
 						@FormParam("projectType") String itemName,
 						@FormParam("projectPrice") String itemPrice,
-						@FormParam("projectDesc") String itemDesc)
+						@FormParam("projectDescription") String itemDesc)
 	{
 			String output = itemObj.insertItem(itemCode, itemName, itemPrice, itemDesc);
 			return output;
@@ -53,7 +53,7 @@ public class ProjectService {
 		String itemCode = itemObject.get("projectName").getAsString();
 		String itemName = itemObject.get("projectType").getAsString();
 		String itemPrice = itemObject.get("projectPrice").getAsString();
-		String itemDesc = itemObject.get("projectDesc").getAsString();
+		String itemDesc = itemObject.get("projectDescription").getAsString();
 		String output = itemObj.updateItem(itemID, itemCode, itemName, itemPrice, itemDesc);
 		return output;
 	}

@@ -65,8 +65,7 @@ public class Researcher
 			 // Prepare the HTML table to be displayed
 			 output = "<table border='1'><tr><th>Researcher Code</th><th>Researcher Name</th>" +
 			 "<th>Project Price</th>" + 
-			 "<th>Project Description</th>" +
-			 "<th>Update</th><th>Remove</th></tr>"; 
+			 "<th>Project Description</th></tr>"; 
 			 
 			 String query = "select * from user"; 
 			 Statement stmt = con.createStatement(); 
@@ -86,11 +85,7 @@ public class Researcher
 			 output += "<td>" + itemCode + "</td>"; 
 			 output += "<td>" + itemEmail + "</td>"; 
 			 output += "<td>" + itemPh + "</td>"; 
-			 // buttons
-			 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-			 + "<td><form method='post' action='user.jsp'>" + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-			 + "<input name='itemID' type='hidden' value='" + itemID 
-			 + "'>" + "</form></td></tr>"; 
+			 
 			 } 
 			 con.close(); 
 			 // Complete the HTML table
@@ -120,10 +115,10 @@ public class Researcher
 			 // binding values
 			 preparedStmt.setString(1, name); 
 			 preparedStmt.setString(2, pw);
-			 preparedStmt.setString(2, code);
-			 preparedStmt.setString(3, email); 
-			 preparedStmt.setString(4, phone); 
-			 preparedStmt.setInt(5, Integer.parseInt(ID)); 
+			 preparedStmt.setString(3, code);
+			 preparedStmt.setString(4, email); 
+			 preparedStmt.setString(5, phone); 
+			 preparedStmt.setInt(6, Integer.parseInt(ID)); 
 			 // execute the statement
 			 preparedStmt.execute(); 
 			 con.close(); 
